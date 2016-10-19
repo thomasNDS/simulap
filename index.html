@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html ng-app="MyPage">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+		<title> simul </title>
+
+		<!-- CSS  -->
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Yatra+One" rel="stylesheet">
+		<link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+		<link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+
+	</head>
+	<body ng-controller="MainCtrl as mc" class="grey lighten-4">
+	
+	<main>
+		<div class="container">
+			<h3> Simulateur de voeux APB PostBac </h3>
+			
+			<!-- LIST  -->
+			<div>
+				<div ng-repeat="n in mc.voeux track by $index">
+				<div class="card horizontal">	
+					  <div class="card-image teal">
+						<h1 style="padding:0.2em;">{{$index + 1}}</h1>
+					  </div>
+					  <div class="card-stacked">
+						<div class="card-content">
+						  <h5>Voeu : {{n.title}}</h5>
+						  
+						  <p>
+							<b>Elève en académie :</b> <span ng-show="n.isAcad">Oui</span>
+													    <span ng-show="!n.isAcad">Non</span>
+							 <br/>
+							<b>Type :</b>
+							<span ng-show="n.type == 0">Université avec places limitées (Licence/PACES)</span>
+							<span ng-show="n.type === '1'">Université (Licence/PACES)</span>
+							<span ng-show="n.type === '2'">CPGE</span>
+							<span ng-show="n.type === '3'">DUT / BTS</span>
+							<span ng-show="n.type === '4'">Autres</span>
+						  </p>
+						</div>
+					<!--	<div class="card-action">
+						  <a href="#">INFO</a>
+						</div>-->
+					  </div>	
+				   </div>
+				</div>
+			</div>
+		
+			<!-- ADD  -->		
+			<div class="row card">
+				<form class="card-content">
+				<span class="card-title">Ajouter un voeu</span>
+				  <div class="row">
+				  	 <div class="input-field col s12">
+						<select ng-model="mc.selectType" class="browser-default">
+						  
+						  <option value="">Université avec places limitées (Licence/PACES)</option>
+						  <option value="1">Université (Licence/PACES)</option>
+						  <option value="2">CPGE</option>
+						  <option value="3">DUT / BTS</option>
+						  <option value="4">Autres</option>
+						</select>
+					  </div>
+					  
+					<div class="input-field col s12">
+					  <input id="first_name" type="text" class="validate" ng-model="mc.selectTitle">
+					  <label for="first_name">Nom de l'établissement</label>
+					</div>
+						<span class="col s9"> Etes vous ratachés à l'académie de cet établissement ? </span>
+					  <div class="switch col s3">
+						<label>
+						  Non
+						  <input type="checkbox" ng-model="mc.selectAcad">
+						  <span class="lever"></span>
+						  Oui
+						</label>
+					  </div>
+				  </div>
+				  <div class="row">
+					<a class="waves-effect waves-light btn right" ng-click="mc.addVoeu()">Ajouter</a>
+				  </div>
+				</form>
+			  </div>
+
+				  			
+		</div><!-- end container -->
+	</main>
+   <!-- ****************************  FOOTER  **************************** -->
+			<footer class="page-footer teal">
+				<div class="container">
+					<div class="row">
+						<div class="col l6 s12">
+
+						</div><!-- end col -->
+
+						<div class="col l6 s12">
+
+						</div><!-- end col -->
+					</div><!-- end row -->
+				</div><!-- end container -->
+				
+				<div ng-view></div>
+				
+				<div class="footer-copyright">
+					<div class="container center cv">
+						Simulateur APB - Non officiel
+					</div><!-- end container -->
+				</div><!-- end footer-copyright -->
+				
+			</footer>
+		
+		<!--  Scripts-->
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+		<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script src="js/materialize.js"></script>
+
+		<script src="js/mainCtrl.js"></script>
+		<script src="js/init.js"></script>
+
+	</body>
+</html>
