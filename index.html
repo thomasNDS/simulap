@@ -23,28 +23,37 @@
 			<div>
 				<div ng-repeat="n in mc.voeux track by $index">
 				<div class="card horizontal">	
-					  <div class="card-image teal">
+					  <div class="card-image grey">
 						<h1 style="padding:0.2em;">{{$index + 1}}</h1>
+						
 					  </div>
 					  <div class="card-stacked">
 						<div class="card-content">
 						  <h5>Voeu : {{n.title}}</h5>
 						  
 						  <p>
-							<b>Elève en académie :</b> <span ng-show="n.isAcad">Oui</span>
-													    <span ng-show="!n.isAcad">Non</span>
-							 <br/>
+							<b>Elève en académie :</b> 
+							<span ng-show="n.isAcad">Oui</span>
+							<span ng-show="!n.isAcad">Non</span>
+							<br/>
+							
 							<b>Type :</b>
 							<span ng-show="n.type == 0">Université avec places limitées (Licence/PACES)</span>
 							<span ng-show="n.type === '1'">Université (Licence/PACES)</span>
 							<span ng-show="n.type === '2'">CPGE</span>
 							<span ng-show="n.type === '3'">DUT / BTS</span>
 							<span ng-show="n.type === '4'">Autres</span>
+							<br/>
+							
+							<span ng-show="n.isRanked"><b>{{n.rangRelatif}} ème </b>voeu en Université avec places limitées</span>
+						  </p>
+
+						</div>
+						<div class="card-action">
+						  <p ng-show="n.isRanked">
+							<span><b>{{n.classement}}</b></span>
 						  </p>
 						</div>
-					<!--	<div class="card-action">
-						  <a href="#">INFO</a>
-						</div>-->
 					  </div>	
 				   </div>
 				</div>
@@ -90,7 +99,7 @@
 		</div><!-- end container -->
 	</main>
    <!-- ****************************  FOOTER  **************************** -->
-			<footer class="page-footer teal">
+			<footer class="page-footer grey">
 				<div class="container">
 					<div class="row">
 						<div class="col l6 s12">
