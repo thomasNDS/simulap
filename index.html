@@ -16,14 +16,26 @@
 	<body ng-controller="MainCtrl as mc" class="grey lighten-4">
 	
 	<main>
+
+		  <nav>
+			<div class="nav-wrapper  grey lighten-5 black-text" style="border-left: 8px teal solid; padding-left: 1em;">
+			  <a href="#!" class="brand-logo grey-text text-darken-2">Simulateur de voeux APB PostBac</a>
+			  <ul class="right hide-on-med-and-down">
+				<li class="active "><a class="grey-text text-darken-2">Simulateur</a></li>
+				<li><a class="grey-text text-darken-2">Exemples</a></li>
+				<li><a class="grey-text text-darken-2">Algorithme</a></li>
+				
+			  </ul>
+			</div>
+		  </nav>
+  
 		<div class="container">
-			<h3> Simulateur de voeux APB PostBac </h3>
 			
 			<!-- LIST  -->
 			<div>
 				<div ng-repeat="n in mc.voeux track by $index">
 				<div class="card horizontal">	
-					  <div class="card-image grey">
+					  <div class="card-image" ng-class="n.color" style="min-width: 10%; text-align: center;">
 						<h1 style="padding:0.2em;">{{$index + 1}}</h1>
 						
 					  </div>
@@ -49,9 +61,20 @@
 						  </p>
 
 						</div>
-						<div class="card-action">
+						<div class="card-action brown lighten-5">
 						  <p ng-show="n.isRanked">
-							<span><b>{{n.classement}}</b></span>
+						  
+							<!--<span><b>{{n.classement}}</b></span> -->
+							
+							<span ng-show="n.prio.length > 0"> Vous êtes prioritaire sur : </span>
+							<div ng-repeat="prio in n.prio">
+								- {{prio}}
+							</div>
+							<br/>
+							<span ng-show="n.nonPrio.length > 0"> Sont prioritaire sur ce voeu : </span>
+							<div ng-repeat="nop in n.nonPrio">
+								- {{nop}}
+							</div>
 						  </p>
 						</div>
 					  </div>	
@@ -99,7 +122,7 @@
 		</div><!-- end container -->
 	</main>
    <!-- ****************************  FOOTER  **************************** -->
-			<footer class="page-footer grey">
+			<footer class="page-footer blue-grey lighten-3">
 				<div class="container">
 					<div class="row">
 						<div class="col l6 s12">
@@ -114,8 +137,8 @@
 				
 				<div ng-view></div>
 				
-				<div class="footer-copyright">
-					<div class="container center cv">
+				<div class="footer-copyright blue-grey lighten-2">
+					<div class="container center">
 						Simulateur APB - Non officiel
 					</div><!-- end container -->
 				</div><!-- end footer-copyright -->
@@ -128,8 +151,8 @@
 		<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<script src="js/materialize.js"></script>
 
-		<script src="js/mainCtrl.js"></script>
-		<script src="js/init.js"></script>
+		<script src="js/mainCtrl.js" charset="UTF-8"></script>
+		<script src="js/init.js" charset="UTF-8"></script>
 
 	</body>
 </html>
