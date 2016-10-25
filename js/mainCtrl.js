@@ -10,9 +10,12 @@ function MainCtrl($routeParams, $scope) {
 	 */
 	this.addVoeu = function() {
 		var newVoeu = {}
-		newVoeu.title = self.selectTitle
+
 		newVoeu.isAcad = self.selectAcad
 		newVoeu.type = self.selectType
+		
+		newVoeu.title = self.selectTitle
+								
 		newVoeu.isRanked = (newVoeu.type == '')
 		newVoeu.color = "grey"
 		
@@ -26,118 +29,161 @@ function MainCtrl($routeParams, $scope) {
 	
 	/**
 	 *
-	 */
-	this.updateRanks = function() {
-		var countVoeuxRelatif = 1
+	 */	
+	this.updateRankUnivAvecSelection = function(rgAbsolu, curVoeu, countVoeuxRelatif) {
+		// Update rang relatif
+		curVoeu.rangRelatif = countVoeuxRelatif
 		
-		for (var i = 0; i < self.voeux.length; i++) {
-			var curVoeu = self.voeux[i]
+		// Compute category
+		curVoeu.classement = Math.min(curVoeu.rangRelatif * 100, 400)
+		curVoeu.classement += rgAbsolu
+		
+		curVoeu.prio = []
+		curVoeu.nonPrio = []
+		
+		if (!curVoeu.isAcad) {
+			curVoeu.classement += 500
+			curVoeu.nonPrio.push("Tout les élèves de l'académie de l'établissement, quelque soit leurs voeux.")
+		} else {
+			curVoeu.prio.push("Tout les élèves qui ne sont pas dans l'académie, quelque soit leurs voeux.")
+		}
+		
+		// color
+		if (curVoeu.classement < 300) {
+			curVoeu.color = "green"	
 			
-			if (curVoeu.isRanked) {
-				// Update rang relatif
-				curVoeu.rangRelatif = countVoeuxRelatif
-				countVoeuxRelatif++
-				
-				// Compute category
-				curVoeu.classement = Math.min(curVoeu.rangRelatif * 100, 400)
-				curVoeu.classement += i
-				
-				curVoeu.prio = []
-				curVoeu.nonPrio = []
-				
-				if (!curVoeu.isAcad) {
-					curVoeu.classement += 500
-					curVoeu.nonPrio.push("Tout les élèves de l'académie de l'établissement, quelque soit leurs voeux.")
-				} else {
-					curVoeu.prio.push("Tout les élèves qui ne sont pas dans l'académie, quelque soit leurs voeux.")
-				}
-				
-				// color
-				if (curVoeu.classement < 300) {
-					curVoeu.color = "green"	
-					
-				} else if (curVoeu.classement < 600) {
-					curVoeu.color = "orange"	
-					
-				} else {
-					curVoeu.color = "red"	
-				}
-				
-				// lighten / darken
-				var unit = curVoeu.classement % 100
-				if (unit < 1) {
-					curVoeu.color += " lighten-3"
-				} else if (unit < 2) {
-					curVoeu.color += " lighten-2"
-				 } else if (unit < 3) {
-				 	curVoeu.color += " lighten-1"
-				 } else if (unit < 4) {
-					curVoeu.color += " darken-1"
-				 } else if (unit < 6) {	
-					curVoeu.color += " darken-2"	
-				 } else if (unit < 8) {	
-					curVoeu.color += " darken-3"					
-				} else {
-					curVoeu.color += " darken-4"
-				}	
+		} else if (curVoeu.classement < 600) {
+			curVoeu.color = "orange"	
+			
+		} else {
+			curVoeu.color = "red"	
+		}
+		
+		// lighten / darken
+		var unit = curVoeu.classement % 100
+		if (unit < 1) {
+			curVoeu.color += " lighten-3"
+		} else if (unit < 2) {
+			curVoeu.color += " lighten-2"
+		 } else if (unit < 3) {
+			curVoeu.color += " lighten-1"
+		 } else if (unit < 4) {
+			curVoeu.color += " darken-1"
+		 } else if (unit < 6) {	
+			curVoeu.color += " darken-2"	
+		 } else if (unit < 8) {	
+			curVoeu.color += " darken-3"					
+		} else {
+			curVoeu.color += " darken-4"
+		}	
 
-				// labels prio / non prio
-				if (curVoeu.classement < 200) {
-					// 1 er voeu relatif
-					curVoeu.prio.push(" Les élèves pour lequels c'est le 2 ème (ou plus) voeu en Université avec sélection (position relative)")
-					
-					if (unit > 0) {
-						self.addStepsLabelAbsolu("1er", curVoeu, unit)
-					}
-					
-				} else if (curVoeu.classement < 300) {
-					// 2 eme voeu relatif
-					curVoeu.nonPrio.push(" Les élèves pour lequels c'est le 1er voeu en Université avec sélection (position relative)")
-					curVoeu.prio.push(" Les élèves pour lequels c'est le 3 ème (ou plus) voeu en Université avec sélection (position relative)")
-					
-					if (unit > 0) {
-						self.addStepsLabelAbsolu("2 eme", curVoeu, unit)
-					}
-					
-				} else {
-					// N eme voeu relatif
-					var nRelatif = (curVoeu.classement - unit)/100
-					curVoeu.nonPrio.push(" Les élèves pour lequels c'est le 1er voeu en Université avec sélection (position relative)")
-					curVoeu.prio.push(" Les élèves pour lequels c'est le " + nRelatif + " ème (ou plus) voeu en Université avec sélection (position relative)")
-					
-					if (unit > 0) {
-						self.addStepsLabelAbsolu(nRelatif + " ème", curVoeu, unit)
-					}
-				}	
-			}	
+		// labels prio / non prio
+		if (curVoeu.rangRelatif < 2) {
+			// 1 er voeu relatif
+			curVoeu.prio.push(" Les élèves pour lequels c'est le 2 ème (ou plus) voeu en Université avec sélection (position relative)")
 			
+		} else if (curVoeu.rangRelatif < 3) {
+			// 2 eme voeu relatif
+			curVoeu.nonPrio.push(" Les élèves pour lequels c'est le 1er voeu en Université avec sélection (position relative)")
+			curVoeu.prio.push(" Les élèves pour lequels c'est le 3 ème (ou plus) voeu en Université avec sélection (position relative)")
+			
+		} else {
+			// N eme voeu relatif (N>2)
+			var txt = " Les élèves pour lequels c'est le 1er ou 2"
+								
+			for (j=3; j < curVoeu.rangRelatif; j ++) {
+				txt += ", " + j
+			}
+			curVoeu.nonPrio.push(txt + " ème voeu en Université avec sélection (position relative)")
+			
+			curVoeu.prio.push(" Les élèves pour lequels c'est le " + curVoeu.rangRelatif + " ème (ou plus) voeux en Université avec sélection (position relative)")
+		}	
+		if (unit > 0) {
+			self.addStepsLabelAbsolu(curVoeu, rgAbsolu)
 		}
 	}
 	
 	/**
 	 *
 	 */
-	this.addStepsLabelAbsolu = function(lvlRelatif, curVoeu, unit) {
-	
-		var start = " Les élèves pour lequels c'est le " + lvlRelatif + " voeu en Université avec sélection (position relative), mais placé "
-		if (unit < 3) {
-			// 2er choix absolu
-			curVoeu.nonPrio.push(start + "en 1 er position sur l'ensemble de ses voeux.")
-			curVoeu.prio.push(start + "en 3 ème position (ou plus) sur l'ensemble de ses voeux.")
-		} else if (unit < 4) {
-			// 3eme choix absolu
-			curVoeu.nonPrio.push(start + "en 1 ère ou 2 ème position sur l'ensemble de ses voeux.")
-			curVoeu.prio.push(start + "en 4 ème position (ou plus) sur l'ensemble de ses voeux.")
-		} else {
-			// Neme choix absolu
-			var txt = start + "en 1 ère, 2" 
+	this.updateRanks = function() {
+		var countVoeuxRelatif = 1
+		
+		for (var rgAbsolu = 0; rgAbsolu < self.voeux.length; rgAbsolu++) {
+		
+			var curVoeu = self.voeux[rgAbsolu]
 			
-			for (j=3; j < unit; j ++) {
-				txt += ", " + j
+			if (curVoeu.type === '1') {
+				// Simple université
+				countVoeuxRelatif++
 			}
-			txt += " ème ou " + j + " ème position sur l'ensemble de ses voeux."
-			curVoeu.nonPrio.push(txt)
-			curVoeu.prio.push(start + "en " + (j + 2) + " ème position (ou plus) sur l'ensemble de ses voeux.")
+			
+			if (curVoeu.isRanked) {
+				this.updateRankUnivAvecSelection(rgAbsolu, curVoeu, countVoeuxRelatif)
+				countVoeuxRelatif++
+			}
+			
+			if (curVoeu.title == '') {
+		
+			switch (curVoeu.type) {
+				case '':
+					curVoeu.title = "Université avec sélection"
+					break;
+				case '1':
+					curVoeu.title = "Université"
+					break;
+				case '2':
+					curVoeu.title = "CPGE"
+					break;
+				case '3':
+					curVoeu.title = "DUT/BTS" 
+					break;		
+				case '4':
+					curVoeu.title = "Autres établissement"
+					break;
+			}
+		}
+			
+		} // end for
+	}
+	
+	/**
+	 *
+	 */
+	this.addStepsLabelAbsolu = function(curVoeu, unit) {
+	
+		var rgAbsolu = unit + 1
+		var lvlRelatif = curVoeu.rangRelatif + " ème"
+		
+		if (curVoeu.rangRelatif == 1) {
+			lvlRelatif = curVoeu.rangRelatif + " er"
+		}
+		var start = " Les élèves pour lequels c'est le " + lvlRelatif + " voeu en Université avec sélection (position relative), mais placé "
+		console.log("rangRelatif=" + curVoeu.rangRelatif )
+		console.log("rgAbsolu=" + rgAbsolu )
+
+		if (curVoeu.rangRelatif  < rgAbsolu) {
+				
+				// rang absolu
+				var txt = start + "en " 
+				
+				if (curVoeu.rangRelatif == 1) {
+					txt += "1 ère"
+				} else {
+					txt +=  j 
+				}
+					
+				for (j=curVoeu.rangRelatif + 1; j < rgAbsolu; j ++) {
+						txt += ", " + j
+				}
+				
+				if (j>2) {
+					txt += " ème"
+				}
+				txt += " position sur l'ensemble de ses voeux."
+				curVoeu.nonPrio.push(txt)
+				curVoeu.prio.push(start + "en " + (rgAbsolu + 1) + " ème position (ou plus) sur l'ensemble de ses voeux.")
+			//}
 		}
 	}
 		
@@ -156,26 +202,13 @@ function MainCtrl($routeParams, $scope) {
 	 *
 	 */
 	$scope.$on('$routeChangeSuccess', function() {
-		var key = $routeParams.key
-		var lang = $routeParams.lang
+		var data = $routeParams.inject
 
-		if (key) {
-			console.debug("key exist : " + key)
+		if (data) {
+			console.debug("key exist : " + data)
 			
-			if (key[0] === 'v') {
-			 console.debug("lvl 1	: " + key)
-			}
-			if (key[0] === 'r') {
-			 console.debug("lvl 2	: " + key)
-			 self.lvl = 2
-			}
 		}
 		console.debug($routeParams);
-		
-		if (lang) {
-			console.debug("Lang detected : " + lang)
-			self.switchLang(lang)
-		}
 		
 	});
 		 
@@ -188,11 +221,16 @@ var app = angular
     .module('MyPage', ['ngRoute'])
     .controller('MainCtrl', MainCtrl);
 
-app.config(function($routeProvider, $locationProvider) {
+app.config(function($routeProvider) {
 		
 	$routeProvider
-		.when("/lang/:lang", { })
-		.when("/:key", { })
+		.when("/conditions", { templateUrl: 'templates/conditions.html'})
+		.when("/apropos", { templateUrl: 'templates/apropos.html'})
+		.when("/exemples", { templateUrl: 'templates/exemples.html'})
+		.when("/algorithme", { templateUrl: 'templates/algorithme.html'})
+		.when("/simulateur", { templateUrl: 'templates/simulateur.html'})
+		.when("/", { templateUrl: 'templates/main.html'})
+		.when("/data/:inject", { templateUrl: 'templates/main.html'})
 
 });
 	

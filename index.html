@@ -13,114 +13,26 @@
 		<link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
 
 	</head>
-	<body ng-controller="MainCtrl as mc" class="grey lighten-4">
+	<body class="grey lighten-4">
 	
 	<main>
-
-		  <nav>
+		 <nav>
 			<div class="nav-wrapper  grey lighten-5 black-text" style="border-left: 8px teal solid; padding-left: 1em;">
-			  <a href="#!" class="brand-logo grey-text text-darken-2">Simulateur de voeux APB PostBac</a>
+			  <a href="#/" class="brand-logo grey-text text-darken-2" style="font-size:1.8em;">Simulateur de voeux APB PostBac</a>
 			  <ul class="right hide-on-med-and-down">
-				<li class="active "><a class="grey-text text-darken-2">Simulateur</a></li>
-				<li><a class="grey-text text-darken-2">Exemples</a></li>
-				<li><a class="grey-text text-darken-2">Algorithme</a></li>
+				<li><a href="#/" class="grey-text text-darken-2">Accueil</a></li>
+				<li class="active "><a href="#simulateur" class="grey-text text-darken-2">Simulateur</a></li>
+				<li><a href="#exemples" class="grey-text text-darken-2">Exemples</a></li>
+				<li><a href="#algorithme" class="grey-text text-darken-2">Algorithme</a></li>
 				
 			  </ul>
 			</div>
-		  </nav>
-  
-		<div class="container">
-			
-			<!-- LIST  -->
-			<div>
-				<div ng-repeat="n in mc.voeux track by $index">
-				<div class="card horizontal">	
-					  <div class="card-image" ng-class="n.color" style="min-width: 10%; text-align: center;">
-						<h1 style="padding:0.2em;">{{$index + 1}}</h1>
-						
-					  </div>
-					  <div class="card-stacked">
-						<div class="card-content">
-						  <h5>Voeu : {{n.title}}</h5>
-						  
-						  <p>
-							<b>Elève en académie :</b> 
-							<span ng-show="n.isAcad">Oui</span>
-							<span ng-show="!n.isAcad">Non</span>
-							<br/>
-							
-							<b>Type :</b>
-							<span ng-show="n.type == 0">Université avec places limitées (Licence/PACES)</span>
-							<span ng-show="n.type === '1'">Université (Licence/PACES)</span>
-							<span ng-show="n.type === '2'">CPGE</span>
-							<span ng-show="n.type === '3'">DUT / BTS</span>
-							<span ng-show="n.type === '4'">Autres</span>
-							<br/>
-							
-							<span ng-show="n.isRanked"><b>{{n.rangRelatif}} ème </b>voeu en Université avec places limitées</span>
-						  </p>
-
-						</div>
-						<div class="card-action brown lighten-5">
-						  <p ng-show="n.isRanked">
-						  
-							<!--<span><b>{{n.classement}}</b></span> -->
-							
-							<span ng-show="n.prio.length > 0"> Vous êtes prioritaire sur : </span>
-							<div ng-repeat="prio in n.prio">
-								- {{prio}}
-							</div>
-							<br/>
-							<span ng-show="n.nonPrio.length > 0"> Sont prioritaire sur ce voeu : </span>
-							<div ng-repeat="nop in n.nonPrio">
-								- {{nop}}
-							</div>
-						  </p>
-						</div>
-					  </div>	
-				   </div>
-				</div>
-			</div>
-		
-			<!-- ADD  -->		
-			<div class="row card">
-				<form class="card-content">
-				<span class="card-title">Ajouter un voeu</span>
-				  <div class="row">
-				  	 <div class="input-field col s12">
-						<select ng-model="mc.selectType" class="browser-default">
-						  
-						  <option value="">Université avec places limitées (Licence/PACES)</option>
-						  <option value="1">Université (Licence/PACES)</option>
-						  <option value="2">CPGE</option>
-						  <option value="3">DUT / BTS</option>
-						  <option value="4">Autres</option>
-						</select>
-					  </div>
-					  
-					<div class="input-field col s12">
-					  <input id="first_name" type="text" class="validate" ng-model="mc.selectTitle">
-					  <label for="first_name">Nom de l'établissement</label>
-					</div>
-						<span class="col s9"> Etes vous ratachés à l'académie de cet établissement ? </span>
-					  <div class="switch col s3">
-						<label>
-						  Non
-						  <input type="checkbox" ng-model="mc.selectAcad">
-						  <span class="lever"></span>
-						  Oui
-						</label>
-					  </div>
-				  </div>
-				  <div class="row">
-					<a class="waves-effect waves-light btn right" ng-click="mc.addVoeu()">Ajouter</a>
-				  </div>
-				</form>
-			  </div>
-
-				  			
-		</div><!-- end container -->
+		</nav>
+	  
+		<div ng-view></div>
+	  
 	</main>
+
    <!-- ****************************  FOOTER  **************************** -->
 			<footer class="page-footer blue-grey lighten-3">
 				<div class="container">
@@ -134,8 +46,6 @@
 						</div><!-- end col -->
 					</div><!-- end row -->
 				</div><!-- end container -->
-				
-				<div ng-view></div>
 				
 				<div class="footer-copyright blue-grey lighten-2">
 					<div class="container center">
