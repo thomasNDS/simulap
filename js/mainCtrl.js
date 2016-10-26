@@ -170,7 +170,7 @@ function MainCtrl($routeParams, $scope) {
 				if (curVoeu.rangRelatif == 1) {
 					txt += "1 ère"
 				} else {
-					txt +=  j 
+					txt +=  curVoeu.rangRelatif 
 				}
 					
 				for (j=curVoeu.rangRelatif + 1; j < rgAbsolu; j ++) {
