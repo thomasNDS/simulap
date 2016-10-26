@@ -1,10 +1,10 @@
 ﻿<div ng-controller="MainCtrl as mc">
 	<div class="container">
 
-			<!-- LIST  -->
-		<ul class="collapsible" data-collapsible="expandable">
+		<!-- LIST  -->
+		<ul class="collapsible" data-collapsible="expandable" ng-show="mc.voeux.length > 0">
 			<li class="" ng-repeat="n in mc.voeux track by $index">	
-					 <!-- header list  -->
+				<!-- header list  -->
 				<div class="collapsible-header">
 					<i class="material-icons" ng-show="n.type == 0">school</i>
 					<i class="material-icons" ng-show="n.type != 0">local_library</i>
@@ -39,7 +39,7 @@
 								<br />
 
 								<span ng-show="n.isRanked">
-									<b>{{n.rangRelatif}} ème </b>
+									<b> {{n.rangRelatif}} ème </b>
 									voeu en Université
 								</span>
 							</div>
@@ -62,6 +62,7 @@
 							<div ng-show="n.isRanked">
 							  
 								<!--<span><b>{{n.classement}}</b></span> -->
+								
 								<ul class="">
 									<li ng-show="n.prio.length > 0" style="margin-bottom: 1em;">
 										<div class="">
@@ -114,8 +115,7 @@
 						<input id="first_name" type="text" class="validate" ng-model="mc.selectTitle">
 							<label for="first_name">Nom de l'établissement</label>
 					</div>
-					<span class="col s9" style="margin-bottom:1em;"> Etes vous ratachés à l'académie de cet
-						établissement ? </span>
+					<span class="col s9" style="margin-bottom:1em;"> Etes vous ratachés à l'académie de cetétablissement ? </span>
 					<div class="switch col s3">
 						<label>
 							Non

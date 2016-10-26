@@ -16,19 +16,19 @@
 	<body class="grey lighten-4">
 	
 	<main>
-		 <nav>
+		 <nav ng-controller="NavCtrl as navc">
 			<div class="nav-wrapper  grey lighten-5 black-text" style="border-left: 8px teal solid; padding-left: 1em;">
 			  <a href="#/" class="brand-logo grey-text text-darken-2" style="font-size:1.8em;">Simulateur de voeux APB PostBac</a>
 			  <ul class="right hide-on-med-and-down">
 				<li><a href="#/" class="grey-text text-darken-2">Accueil</a></li>
-				<li class="active "><a href="#simulateur" class="grey-text text-darken-2">Simulateur</a></li>
-				<li><a href="#exemples" class="grey-text text-darken-2">Exemples</a></li>
-				<li><a href="#algorithme" class="grey-text text-darken-2">Algorithme</a></li>
+				<li ng-class="navc.getClass('/simulateur')"><a href="#simulateur" class="grey-text text-darken-2">Simulateur</a></li>
+				<li ng-class="navc.getClass('/exemples')"><a href="#exemples" class="grey-text text-darken-2">Exemples</a></li>
+				<li ng-class="navc.getClass('/algorithme')"><a href="#algorithme" class="grey-text text-darken-2">Algorithme</a></li>
 				
 			  </ul>
 			</div>
 		</nav>
-	  
+
 		<div ng-view></div>
 	  
 	</main>
@@ -36,7 +36,7 @@
    <!-- ****************************  FOOTER  **************************** -->
 			<footer class="page-footer blue-grey lighten-3">
 				<div class="container">
-					<div class="row">
+					<div class="">
 						<div class="col l6 s12">
 
 						</div><!-- end col -->
@@ -49,7 +49,9 @@
 				
 				<div class="footer-copyright blue-grey lighten-2">
 					<div class="container center">
-						Simulateur APB - Non officiel
+						2016 - Simulateur APB - Non officiel - 
+						<a href="#apropos" class="white-text"> A propos </a> - 
+						<a href="#mentions-legales" class="white-text"> Mentions légales </a>
 					</div><!-- end container -->
 				</div><!-- end footer-copyright -->
 				

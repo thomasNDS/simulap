@@ -215,16 +215,31 @@ function MainCtrl($routeParams, $scope) {
 }
 MainCtrl.$inject = ['$routeParams', '$scope']
 
+/**
+ *
+ */
+function NavCtrl($location) {
+
+	/**
+	 *
+	 */
+	this.getClass = function (path) {
+	  return ($location.path().substr(0, path.length) === path) ? 'active' : '';
+	}
+}
+NavCtrl.$inject = ['$location']
+
 ////////////////////////////////// APP DEFINITION ///////////////////////////////
 
 var app = angular
     .module('MyPage', ['ngRoute'])
+	.controller('NavCtrl', NavCtrl)
     .controller('MainCtrl', MainCtrl);
 
 app.config(function($routeProvider) {
 		
 	$routeProvider
-		.when("/conditions", { templateUrl: 'templates/conditions.html'})
+		.when("/mentions-legales", { templateUrl: 'templates/mentions-legales.html'})
 		.when("/apropos", { templateUrl: 'templates/apropos.html'})
 		.when("/exemples", { templateUrl: 'templates/exemples.html'})
 		.when("/algorithme", { templateUrl: 'templates/algorithme.html'})
