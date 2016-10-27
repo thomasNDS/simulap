@@ -28,6 +28,68 @@ function MainCtrl($routeParams, $scope) {
 	}
 	
 	/**
+	 * Au moins avant derniere valeur
+	 */	
+	this.canGoDown = function(index) {
+		return index < self.voeux.length - 1 && self.voeux.length > 1
+	}
+	
+	/**
+	 * Au moins 2 eme valeur
+	 */
+	this.canGoUp = function(index) {
+		return index > 0 && self.voeux.length > 1
+	}
+	
+	/**
+	 *
+	 */		
+	this.goDown = function(index) {
+		if (self.canGoDown(index)) {
+		
+			var tmp = self.voeux[index]
+			self.voeux[index] = self.voeux[index - 1]
+			self.voeux[index - 1] = tmp
+		}
+		self.updateRanks()
+	}
+	
+	/**
+	 *
+	 */		
+	this.goUp = function(index) {
+		if (self.canGoUp(index)) {
+
+			var tmp = self.voeux[index]
+			self.voeux[index] = self.voeux[index - 1]
+			self.voeux[index - 1] = tmp
+			self.updateRanks()
+		}
+	}
+	
+	/**
+	 *
+	 */		
+	this.goDown = function(index) {
+		if (self.canGoDown(index)) {
+		
+			var tmp = self.voeux[index]
+			self.voeux[index] = self.voeux[index + 1]
+			self.voeux[index + 1] = tmp
+			self.updateRanks()
+		}
+	}
+	
+	/**
+	 *
+	 */		
+	this.deleteIndex = function(index) {
+		
+		self.voeux.splice(index, 1)
+		self.updateRanks()
+	}
+	
+	/**
 	 *
 	 */	
 	this.updateRankUnivAvecSelection = function(rgAbsolu, curVoeu, countVoeuxRelatif) {
@@ -197,6 +259,12 @@ function MainCtrl($routeParams, $scope) {
 		self.selectType = ""
 	
 	// Init
+	
+	// jquerry
+	$('.collapsible').collapsible({
+		accordion : false
+	});
+	$('select').material_select();
 	
 	/**
 	 *

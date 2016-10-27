@@ -6,11 +6,24 @@
 			<li class="" ng-repeat="n in mc.voeux track by $index">	
 				<!-- header list  -->
 				<div class="collapsible-header">
-					<i class="material-icons" ng-show="n.type == 0">school</i>
-					<i class="material-icons" ng-show="n.type != 0">local_library</i>
-					<b>{{$index + 1}}</b> {{n.title}}
-					<span ng-class="n.color" href="#!" class="secondary-content"
-						style="width: 30px; margin-right: -1rem; font-size: 0;">.</span>
+					<div class="clickable">
+						<i class="material-icons" ng-show="n.type == 0">school</i>
+						<i class="material-icons" ng-show="n.type != 0">local_library</i>
+						<b>{{$index + 1}}</b> {{n.title}}
+						
+						<span ng-class="n.color" href="#!" class="secondary-content"
+							style="width: 30px; margin-right: -1rem; font-size: 0;">.</span>
+					</div>
+
+					<div class="secondary-content" style="">
+						<a ng-click="mc.goUp($index)" ng-show="mc.canGoUp($index)" class="waves-effect waves-teal btn-flat si-button"> 
+						<i class="material-icons">arrow_upward</i> </a>
+						<a ng-click="mc.goDown($index)" ng-show="mc.canGoDown($index)" class="waves-effect waves-teal btn-flat si-button"> 
+						<i class="material-icons">arrow_downward</i> </a>
+						<a ng-click="mc.deleteIndex($index)" class="waves-effect waves-teal btn-flat si-button"> 
+						<i class="material-icons">delete_forever</i> </a>
+					</div>
+					
 				</div>
 				<!-- content list  -->
 				<div class="collapsible-body card horizontal" style="margin-top: 0px !important;">
@@ -43,7 +56,6 @@
 									voeu en Université
 								</span>
 							</div>
-
 						</div>
 						<!-- DOWN content part  -->
 						<div class="card-action brown lighten-5">
@@ -95,7 +107,7 @@
 		</ul> <!-- end list  -->	
 		
 		<!-- ADD  -->
-		<div class="row card">
+		<div class="row card" style="margin-top:2em;">
 			<form class="card-content">
 				<span class="card-title">Ajouter un voeu</span>
 				<div class="row">
@@ -115,7 +127,7 @@
 						<input id="first_name" type="text" class="validate" ng-model="mc.selectTitle">
 							<label for="first_name">Nom de l'établissement</label>
 					</div>
-					<span class="col s9" style="margin-bottom:1em;"> Etes vous ratachés à l'académie de cetétablissement ? </span>
+					<span class="col s9" style="margin-bottom:1em;"> Etes vous ratachés à l'académie de cet établissement ? </span>
 					<div class="switch col s3">
 						<label>
 							Non
@@ -133,3 +145,6 @@
 
 	</div><!-- end container -->
 </div><!-- end controller -->
+
+
+

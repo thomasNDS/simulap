@@ -9,3 +9,20 @@
   main {
     flex: 1 0 auto;
   }
+  
+  .si-button {
+	width: 2em;
+    margin: 0em 0.2em 0em 0em;
+    padding: 0;
+    color: #9c9c9c;
+  }
+  
+    .si-button :hover {
+		color: black;
+	}
+	
+	.clickable {
+		margin: 0;
+		padding: 0;
+		display: inline;
+	}
