@@ -5,7 +5,7 @@
 		<ul class="collapsible" data-collapsible="expandable" ng-show="mc.voeux.length > 0">
 			<li class="" ng-repeat="n in mc.voeux track by $index">	
 				<!-- header list  -->
-				<div class="collapsible-header">
+				<div id="head-{{$index}}" class="collapsible-header">
 					<div class="clickable">
 						<i class="material-icons" ng-show="n.type == 0">school</i>
 						<i class="material-icons" ng-show="n.type != 0">local_library</i>
@@ -14,19 +14,25 @@
 						<span ng-class="n.color" href="#!" class="secondary-content"
 							style="width: 30px; margin-right: -1rem; font-size: 0;">.</span>
 					</div>
-
+					
 					<div class="secondary-content" style="">
+					
+						<a ng-click="mc.expand($index)" ng-show="!n.isExpand" class="waves-effect waves-teal btn-flat si-button">
+							<i class="material-icons sm-header-icons">fullscreen</i></a>
+						<a ng-click="mc.collapse($index)" ng-show="n.isExpand" class="waves-effect waves-teal btn-flat si-button">
+							<i class="material-icons sm-header-icons">remove</i></a></a>
 						<a ng-click="mc.goUp($index)" ng-show="mc.canGoUp($index)" class="waves-effect waves-teal btn-flat si-button"> 
-						<i class="material-icons">arrow_upward</i> </a>
+							<i class="material-icons sm-header-icons">arrow_upward</i> </a>
 						<a ng-click="mc.goDown($index)" ng-show="mc.canGoDown($index)" class="waves-effect waves-teal btn-flat si-button"> 
-						<i class="material-icons">arrow_downward</i> </a>
+							<i class="material-icons sm-header-icons">arrow_downward</i> </a>
 						<a ng-click="mc.deleteIndex($index)" class="waves-effect waves-teal btn-flat si-button"> 
-						<i class="material-icons">delete_forever</i> </a>
+							<i class="material-icons sm-header-icons">delete_forever</i> </a>
 					</div>
 					
 				</div>
 				<!-- content list  -->
 				<div class="collapsible-body card horizontal" style="margin-top: 0px !important;">
+
 					<!-- content left  -->
 					<div class="card-image" ng-class="n.color" style="min-width: 10%; text-align: center;">
 						<h1 style="padding:0.2em;">{{$index + 1}}</h1>
@@ -131,14 +137,14 @@
 					<div class="switch col s3">
 						<label>
 							Non
-							<input type="checkbox" ng-model="mc.selectAcad">
-								<span class="lever"></span>
-								Oui
+							<input type="checkbox" ng-model="mc.selectAcad" />
+							<span class="lever"></span>
+							Oui
 						</label>
 					</div>
 				</div>
 				<div class="row">
-					<a class="waves-effect waves-light btn right" ng-click="mc.addVoeu()">Ajouter</a>
+					<a class="waves-effect waves-light btn right" ng-click="mc.addVoeu()" style="margin-right: 1em;">Ajouter</a>
 				</div>
 			</form>
 		</div>

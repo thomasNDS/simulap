@@ -13,7 +13,7 @@ function MainCtrl($routeParams, $scope) {
 
 		newVoeu.isAcad = self.selectAcad
 		newVoeu.type = self.selectType
-		
+		newVoeu.isExpand = true
 		newVoeu.title = self.selectTitle
 								
 		newVoeu.isRanked = (newVoeu.type == '')
@@ -193,6 +193,7 @@ function MainCtrl($routeParams, $scope) {
 					break;
 				case '1':
 					curVoeu.title = "Université"
+					curVoeu.color = "blue accent-1"
 					break;
 				case '2':
 					curVoeu.title = "CPGE"
@@ -221,8 +222,6 @@ function MainCtrl($routeParams, $scope) {
 			lvlRelatif = curVoeu.rangRelatif + " er"
 		}
 		var start = " Les élèves pour lequels c'est le " + lvlRelatif + " voeu en Université avec sélection (position relative), mais placé "
-		console.log("rangRelatif=" + curVoeu.rangRelatif )
-		console.log("rgAbsolu=" + rgAbsolu )
 
 		if (curVoeu.rangRelatif  < rgAbsolu) {
 				
@@ -248,7 +247,30 @@ function MainCtrl($routeParams, $scope) {
 			//}
 		}
 	}
-		
+	
+	/**
+	 *
+	 */
+	this.expand = function(index) {
+
+		self.voeux[index].isExpand = true
+		$("#head-" + index).addClass("active");
+		$(".collapsible").collapsible({accordion: false});
+	}
+	
+	/**
+	 *
+	 */
+	this.collapse = function(index) {
+
+	  self.voeux[index].isExpand = false
+	  $("#head-" + index).removeClass(function(){
+		 return "active";
+	  });
+	  $(".collapsible").collapsible({accordion: true});
+	  $(".collapsible").collapsible({accordion: false});
+	}	
+	
 	// Attributes ********************************************************************
 	
 	var self = this
@@ -261,9 +283,9 @@ function MainCtrl($routeParams, $scope) {
 	// Init
 	
 	// jquerry
-	$('.collapsible').collapsible({
-		accordion : false
-	});
+//	$('.collapsible').collapsible({
+//		accordion : false
+//	});
 	$('select').material_select();
 	
 	/**

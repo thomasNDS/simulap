@@ -26,3 +26,6 @@
 		padding: 0;
 		display: inline;
 	}
+	.sm-header-icons {
+		line-height: 2.5rem !important;
+	}
