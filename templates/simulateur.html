@@ -5,13 +5,15 @@
 		<ul class="collapsible" data-collapsible="expandable" ng-show="mc.voeux.length > 0">
 			<li class="" ng-repeat="n in mc.voeux track by $index">	
 				<!-- header list  -->
-				<div id="head-{{$index}}" class="collapsible-header">
+				<div id="head-{{$index}}" class="collapsible-header active">
 					<div class="clickable">
-						<i class="material-icons" ng-show="n.type == 0">school</i>
-						<i class="material-icons" ng-show="n.type != 0">local_library</i>
+						<i ng-class="[(n.color + '-text'), ('text-' + n.colorSpec)]" class="material-icons" ng-show="n.type == 0">school</i>
+						<i class="material-icons blue-text text-accent-1" ng-show="n.type == 1">school</i>
+						<i class="material-icons grey-text" ng-show="n.type > 1">local_library</i>
+
 						<b>{{$index + 1}}</b> {{n.title}}
 						
-						<span ng-class="n.color" href="#!" class="secondary-content"
+						<span ng-class="[n.color, n.colorSpec]" href="#!" class="secondary-content"
 							style="width: 30px; margin-right: -1rem; font-size: 0;">.</span>
 					</div>
 					
@@ -34,7 +36,7 @@
 				<div class="collapsible-body card horizontal" style="margin-top: 0px !important;">
 
 					<!-- content left  -->
-					<div class="card-image" ng-class="n.color" style="min-width: 10%; text-align: center;">
+					<div class="card-image" ng-class="[n.color, n.colorSpec]" style="min-width: 10%; text-align: center;">
 						<h1 style="padding:0.2em;">{{$index + 1}}</h1>
 					</div>
 
@@ -69,12 +71,9 @@
 							<div ng-show="!n.isRanked">
 								<span></span>
 								<span ng-show="n.type === '1'">Pas de sélection à l'entrée.</span>
-								<span ng-show="n.type === '2'">La sélection se fait sur dossier et/ou concours selon
-									les critères de la CPGE.</span>
-								<span ng-show="n.type === '3'">La sélection se fait sur dossier et/ou concours selon
-									les critères de l'établissement.</span>
-								<span ng-show="n.type === '4'">La sélection se fait sur dossier et/ou concours selon
-									les critères de l'établissement.</span>
+								<span ng-show="n.type === '2'">La sélection se fait sur dossier et/ou concours selon les modalités de la CPGE.</span>
+								<span ng-show="n.type === '3'">La sélection se fait sur dossier et/ou concours selon les modalités de l'établissement.</span>
+								<span ng-show="n.type === '4'">La sélection se fait sur dossier et/ou concours selon les modalités de l'établissement. Seul les voeux en Université avec sélection</span>
 							</div>
 
 							<div ng-show="n.isRanked">
@@ -103,8 +102,11 @@
 										</div>
 									</li>
 								</ul>
+								<div style=" font-size: 0.85em; margin-top: 1.2em;">
+									Si les critères de priorités ne suffisent pas à départager les candidats, APB effectue un tirage au sort.
+								</div>
 							</div> <!-- end is ranked  -->
-
+							
 						</div> <!-- end card-action DOWN  -->
 					</div>
 

@@ -421,7 +421,7 @@ if ($) {
         if (options.accordion || collapsible_type === "accordion" || collapsible_type === undefined) { // Handle Accordion
           accordionOpen(element);
         } else { // Handle Expandables
-          expandableOpen(element);
+          //expandableOpen(element);
 
           if ($header.hasClass('active')) {
             expandableOpen($header);

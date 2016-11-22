@@ -124,19 +124,19 @@ function MainCtrl($routeParams, $scope) {
 		// lighten / darken
 		var unit = curVoeu.classement % 100
 		if (unit < 1) {
-			curVoeu.color += " lighten-3"
+			curVoeu.colorSpec = "lighten-3"
 		} else if (unit < 2) {
-			curVoeu.color += " lighten-2"
+			curVoeu.colorSpec = "lighten-2"
 		 } else if (unit < 3) {
-			curVoeu.color += " lighten-1"
+			curVoeu.colorSpec = "lighten-1"
 		 } else if (unit < 4) {
-			curVoeu.color += " darken-1"
+			curVoeu.colorSpec = "darken-1"
 		 } else if (unit < 6) {	
-			curVoeu.color += " darken-2"	
+			curVoeu.colorSpec = "darken-2"	
 		 } else if (unit < 8) {	
-			curVoeu.color += " darken-3"					
+			curVoeu.colorSpec = "darken-3"					
 		} else {
-			curVoeu.color += " darken-4"
+			curVoeu.colorSpec = "darken-4"
 		}	
 
 		// labels prio / non prio
@@ -252,23 +252,18 @@ function MainCtrl($routeParams, $scope) {
 	 *
 	 */
 	this.expand = function(index) {
-
+		console.log("expand " + index)
 		self.voeux[index].isExpand = true
-		$("#head-" + index).addClass("active");
-		$(".collapsible").collapsible({accordion: false});
+		$("#head-" + index).siblings('.collapsible-body').stop(true,false).slideDown({ duration: 350, easing: "easeOutQuart", queue: false, complete: function() {$(this).css('height', '');}});
 	}
 	
 	/**
 	 *
 	 */
 	this.collapse = function(index) {
-
+	  console.log("collapse " + index)
 	  self.voeux[index].isExpand = false
-	  $("#head-" + index).removeClass(function(){
-		 return "active";
-	  });
-	  $(".collapsible").collapsible({accordion: true});
-	  $(".collapsible").collapsible({accordion: false});
+	  $("#head-" + index).siblings('.collapsible-body').stop(true,false).slideUp({ duration: 350, easing: "easeOutQuart", queue: false, complete: function() {$(this).css('height', '');}});
 	}	
 	
 	// Attributes ********************************************************************
@@ -276,16 +271,12 @@ function MainCtrl($routeParams, $scope) {
 	var self = this
 	self.voeux = []
 	
-		self.selectTitle = ""
-		self.selectAcad = false
-		self.selectType = ""
+	self.selectTitle = ""
+	self.selectAcad = false
+	self.selectType = ""
 	
 	// Init
 	
-	// jquerry
-//	$('.collapsible').collapsible({
-//		accordion : false
-//	});
 	$('select').material_select();
 	
 	/**
@@ -296,12 +287,24 @@ function MainCtrl($routeParams, $scope) {
 
 		if (data) {
 			console.debug("key exist : " + data)
-			
+			try {
+				importedData = JSON.parse(data)
+				for (var i = 0; i < importedData.length; i++) {
+				
+					// [{"t":1,"a":0},{"t":1,"a":0},{"t":3,"a":0},{"t":2,"a":1}]
+					console.log(i + " - t:" + importedData[i].t + ", a:" + importedData[i].a)
+					self.selectAcad = importedData[i].a
+					self.selectType = importedData[i].t + ""
+					self.addVoeu()
+				}
+				
+			} catch(err) {
+				console.error(err.message);
+			}
 		}
 		console.debug($routeParams);
 		
 	});
-		 
 }
 MainCtrl.$inject = ['$routeParams', '$scope']
 
@@ -335,7 +338,7 @@ app.config(function($routeProvider) {
 		.when("/algorithme", { templateUrl: 'templates/algorithme.html'})
 		.when("/simulateur", { templateUrl: 'templates/simulateur.html'})
 		.when("/", { templateUrl: 'templates/main.html'})
-		.when("/data/:inject", { templateUrl: 'templates/main.html'})
+		.when("/simulateur/data/:inject", { templateUrl: 'templates/simulateur.html'})
 
 });
 	
