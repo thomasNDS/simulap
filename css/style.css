@@ -29,3 +29,16 @@
 	.sm-header-icons {
 		line-height: 2.5rem !important;
 	}
+	
+	/* info text*/
+	.info-text {
+		vertical-align: super;
+	}
+	
+	.icon-info {
+		font-size: 2.5rem;
+	}
+	
+	.info-card {
+		padding:0.8em;
+	}
