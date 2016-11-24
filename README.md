@@ -1,1 +1,1 @@
-https://thomasnds.github.io/simulap/
+Under GNU/GPL v3 license

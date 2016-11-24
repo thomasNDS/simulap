@@ -1,4 +1,4 @@
-﻿
+﻿// Code under GPL/GNU v3 licence @Thomas Nunes <thomasnds.github.io> 
 
 //////////////////////////////////////CONTROLLER///////////////////////////////
 function MainCtrl($routeParams, $scope) {
