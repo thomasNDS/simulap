@@ -1,19 +1,52 @@
 ﻿<!-- Code under GPL/GNU v3 licence @Thomas Nunes <thomasnds.github.io> -->
 <div ng-controller="MainCtrl as mc">
 	<div class="container">
-		<h2> Algorithme </h2>
+		<h3> </h3>
 
 		<div class="row ">
 
 			<div class="card">
-				<div class="card-content ">
-					<p >
-						In work
+				
+				<div class="card-image" style="    min-width: 100%;
+    background-attachment: fixed;
+    max-height: 350px;
+    overflow: hidden;
+    background: url(img/algo.png);
+    height: 350px;
+    background-repeat: no-repeat;    background-color: #f4f7f8;
+    background-attachment: fixed;">
+				  
+				  <span class="card-title black-text right" style="font-size: 2.5em;"> L' Algorithme APB</span>
+				</div>
+				<div class="card-content">
+				<h5> Les origines </h5>
+					<p>
+						Admission post-bac est une plateforme qui permet l'affectation des bachelier dans les établissements de l'enseignement supérieur. 
+						Un certain flou entourait cet algorithme complexe, en particulier sur le cas des filières « en tension ». 
+						Ce sont des cursus universitaire surchargés par les demandes qui sont géré par un algorithme qui mêle système de priorité et tirage au sort. 
+						<br/>
+						C'est <i>L' asociation Droits des lycéens</i>  qui a obtenu la diffusion du code source d'admission Post-bac, document fournit par l'administration sous format papier.
+						L'analyse de ces sources a permis de créer ce site qui a pour objectif de reproduire le fonctionnement de cet algorithme.
+					</p>
+					 <br/>
+					 
+					 <h5> Le système de priorité </h5>
+					 <p>
+						APB fonctionne avec un algorithme dit "truth telling".
+					</p>
+					
+					 <br/>
+					 <h5> Sources </h5>
+					<p>
+						le 12 septembre 2016 dévoille <a href="http://api.rue89.nouvelobs.com/sites/news/files/assets/document/2016/10/algorithme.pdf">Document scanné diffusé par le nouvel Obs</a> <br/>
+						Code source détaillé disponible sur<a href="https://github.com/jeantil/admission_post_bac"> Github</a>
 					</p>
 				</div>
 			</div>
 			
 		</div><!-- end row -->
+		
+		
 		
 	</div><!-- end container -->
 </div><!-- end controller -->
